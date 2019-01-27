@@ -26,7 +26,7 @@ public class TargetPractice : MonoBehaviour
         return $"Target has {this.Health} left";
     }
 
-    internal void TakeDamage(int incomingDamage)
+    internal void TakeDamage(int incomingDamage, string weaponDescription)
     {
         this.Health = this.Health - incomingDamage;
         
@@ -41,6 +41,11 @@ public class TargetPractice : MonoBehaviour
         var txtRemainingHealth = canvasObject.transform.Find("TextRemainingHealth");
         var componentTxtRemainingHealth = txtRemainingHealth.GetComponent<TextMeshProUGUI>();
         componentTxtRemainingHealth.SetText(this.ToString());
+
+        var textAttackStatus = canvasObject.transform.Find("TextAttackStatus");
+        var componentTextAttackStatus = textAttackStatus.GetComponent<TextMeshProUGUI>();
+        componentTextAttackStatus.SetText(weaponDescription);
+
     }
 
     public IEnumerator FadeTextToZeroAlpha(float t, TextMeshProUGUI i)
