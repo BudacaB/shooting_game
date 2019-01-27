@@ -7,12 +7,13 @@ using UnityEngine;
 public class TargetPractice : MonoBehaviour
 {
     public int Health { get; set; }
+    public int ArmourPercent { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
         this.Health = 99999999;
-
+        this.ArmourPercent = 34;
     }
 
     // Update is called once per frame
@@ -28,13 +29,13 @@ public class TargetPractice : MonoBehaviour
 
     internal void TakeDamage(int incomingDamage, string weaponDescription)
     {
-        this.Health = this.Health - incomingDamage;
+        var calculatedDmg = GetIncomingDamageFrom(incomingDamage);
+        this.Health = this.Health - calculatedDmg;
         
-
         GameObject canvasObject = GameObject.FindGameObjectWithTag("Canvas");
         var txtDmgTaken = canvasObject.transform.Find("TextDamageTaken");
         var componentTxtDaamgetaken = txtDmgTaken.GetComponent<TextMeshProUGUI>();
-        componentTxtDaamgetaken.SetText($"{incomingDamage}");
+        componentTxtDaamgetaken.SetText($"{calculatedDmg}");
 
         StartCoroutine(FadeTextToZeroAlpha(.2f, componentTxtDaamgetaken));
 
@@ -47,6 +48,14 @@ public class TargetPractice : MonoBehaviour
         componentTextAttackStatus.SetText(weaponDescription);
 
     }
+
+    private int GetIncomingDamageFrom(int incomingDamage)
+    {
+        decimal dmgCalculation = incomingDamage * ArmourPercent / 100;
+        var totalDmg = incomingDamage - Math.Round(dmgCalculation);
+        Debug.Log(totalDmg);
+        return Convert.ToInt32(totalDmg);
+    }   
 
     public IEnumerator FadeTextToZeroAlpha(float t, TextMeshProUGUI i)
     {
