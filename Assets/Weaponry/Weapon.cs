@@ -25,7 +25,7 @@ namespace Assets.Weaponry
         Ice
     }
 
-    public enum WeaponClass
+    public enum WeaponRarity
     {
         Common,
         Rare,
@@ -45,10 +45,10 @@ namespace Assets.Weaponry
         public WeaponType Type { get; set; }
         public DamageSpread DmgSpread { get; set; }
         public DamageType DmgType { get; set; }
-        public WeaponClass Class { get; set; }
+        public WeaponRarity Class { get; set; }
         public List<Augment> Augments { get; set; }
 
-        public Weapon(string name, WeaponClass weaponClass)
+        public Weapon(string name, WeaponRarity weaponClass)
         {
             this.Class = weaponClass;
             this.Name = name;
@@ -64,9 +64,9 @@ namespace Assets.Weaponry
         private int CalculateBaseDamageByClass()
         {
             var baseDmg = 0;
-            if (this.Class == WeaponClass.Common) baseDmg = 50;
-            else if (this.Class == WeaponClass.Legendary) baseDmg = 300;
-            else if (this.Class == WeaponClass.Rare) baseDmg = 100;
+            if (this.Class == WeaponRarity.Common) baseDmg = 50;
+            else if (this.Class == WeaponRarity.Legendary) baseDmg = 300;
+            else if (this.Class == WeaponRarity.Rare) baseDmg = 100;
             else baseDmg = 500;
             return baseDmg;
         }

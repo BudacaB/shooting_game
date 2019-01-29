@@ -18,7 +18,7 @@ public class WeaponBehaviour : MonoBehaviour
         var stoneOfOrin = new Augment("Stone of Orin", AugmentType.Rune);
         var pebbleOfGods = new Augment("Pebble of Gods", AugmentType.Rune);
         var augmentList = new List<Augment>() { ruby, stoneOfOrin };
-        this.currentWeapon = new Weapon("Sword", WeaponClass.Legendary);
+        this.currentWeapon = new Weapon("Sword", WeaponRarity.Legendary);
         this.currentWeapon.Augments.AddRange(augmentList);
         this.weaponDamage = this.currentWeapon.Damage; 
     }
