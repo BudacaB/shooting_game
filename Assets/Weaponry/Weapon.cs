@@ -58,7 +58,9 @@ namespace Assets.Weaponry
         private int CalculateDamage()
         {
             var totalDamage = CalculateBaseDamageByClass() + GetDmgForAllAugments();
-            return totalDamage;
+            Random randomDamage = new Random();
+            var damageRange = randomDamage.Next(totalDamage - 10, totalDamage + 10);
+            return damageRange;
         }
 
         private int CalculateBaseDamageByClass()

@@ -30,22 +30,12 @@ public class TargetPractice : MonoBehaviour
     internal void TakeDamage(int incomingDamage, string weaponDescription)
     {
         var calculatedDmg = GetIncomingDamageFrom(incomingDamage);
+        Console.Write(calculatedDmg);
         this.Health = this.Health - calculatedDmg;
-        
-        GameObject canvasObject = GameObject.FindGameObjectWithTag("Canvas");
-        var txtDmgTaken = canvasObject.transform.Find("TextDamageTaken");
-        var componentTxtDaamgetaken = txtDmgTaken.GetComponent<TextMeshProUGUI>();
-        componentTxtDaamgetaken.SetText($"{calculatedDmg}");
 
-        StartCoroutine(FadeTextToZeroAlpha(.2f, componentTxtDaamgetaken));
-
-        var txtRemainingHealth = canvasObject.transform.Find("TextRemainingHealth");
-        var componentTxtRemainingHealth = txtRemainingHealth.GetComponent<TextMeshProUGUI>();
-        componentTxtRemainingHealth.SetText(this.ToString());
-
-        var textAttackStatus = canvasObject.transform.Find("TextAttackStatus");
-        var componentTextAttackStatus = textAttackStatus.GetComponent<TextMeshProUGUI>();
-        componentTextAttackStatus.SetText(weaponDescription);
+        NotifyUI.SendDamageTakenMessage(calculatedDmg);
+        NotifyUI.SendRemainingHealthMessage(this.ToString());
+        NotifyUI.SendAttackStatusMessage(weaponDescription);
 
     }
 
@@ -55,7 +45,11 @@ public class TargetPractice : MonoBehaviour
         var totalDmg = incomingDamage - Math.Round(dmgCalculation);
         Debug.Log(totalDmg);
         return Convert.ToInt32(totalDmg);
-    }   
+    }    
+}
+
+public class NotifyUI : MonoBehaviour   
+{
 
     public IEnumerator FadeTextToZeroAlpha(float t, TextMeshProUGUI i)
     {
@@ -65,5 +59,32 @@ public class TargetPractice : MonoBehaviour
             i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a - (Time.deltaTime / t));
             yield return null;
         }
+    }
+
+    internal static void SendDamageTakenMessage(int damage)
+    {
+        GameObject canvasObject = GameObject.FindGameObjectWithTag("Canvas");
+        var txtDmgTaken = canvasObject.transform.Find("TextDamageTaken");
+        var componentTxtDamageTaken = txtDmgTaken.GetComponent<TextMeshProUGUI>();
+        componentTxtDamageTaken.SetText($"{damage}");
+
+        // Need to make this functional again
+        //StartCoroutine(FadeTextToZeroAlpha(.2f, componentTxtDamageTaken));
+    }
+
+    internal static void SendRemainingHealthMessage (string input)
+    {
+        GameObject canvasObject = GameObject.FindGameObjectWithTag("Canvas");
+        var txtRemainingHealth = canvasObject.transform.Find("TextRemainingHealth");
+        var componentTxtRemainingHealth = txtRemainingHealth.GetComponent<TextMeshProUGUI>();
+        componentTxtRemainingHealth.SetText(input);
+    }
+    
+    internal static void SendAttackStatusMessage(string weapon)
+    {
+        GameObject canvasObject = GameObject.FindGameObjectWithTag("Canvas");
+        var textAttackStatus = canvasObject.transform.Find("TextAttackStatus");
+        var componentTextAttackStatus = textAttackStatus.GetComponent<TextMeshProUGUI>();
+        componentTextAttackStatus.SetText(weapon);
     }
 }
