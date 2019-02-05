@@ -9,18 +9,24 @@ public class WeaponBehaviour : MonoBehaviour
     public Transform firePoint;
     public string weaponName;
     public int weaponDamage;
-    public Weapon currentWeapon;
+    //public Weapon currentWeapon;
+    public Knife currentWeapon;
 
 
     private void Start()
     {
-        var ruby = new Augment("Ruby of Potence", AugmentType.Gem);
-        var stoneOfOrin = new Augment("Stone of Orin", AugmentType.Rune);
-        var pebbleOfGods = new Augment("Pebble of Gods", AugmentType.Rune);
-        var augmentList = new List<Augment>() { ruby, stoneOfOrin };
-        this.currentWeapon = new Weapon("Sword", WeaponRarity.Legendary);
-        this.currentWeapon.Augments.AddRange(augmentList);
-        this.weaponDamage = this.currentWeapon.Damage; 
+        //var ruby = new Augment("Ruby of Potence", AugmentType.Gem);
+        //var stoneOfOrin = new Augment("Stone of Orin", AugmentType.Rune);
+        //var pebbleOfGods = new Augment("Pebble of Gods", AugmentType.Rune);
+        //var augmentList = new List<Augment>() { ruby, stoneOfOrin };
+        //this.currentWeapon = new Weapon("Sword", WeaponRarity.Legendary);
+        //this.currentWeapon.Augments.AddRange(augmentList);
+        //this.weaponDamage = this.currentWeapon.Damage;
+
+        currentWeapon = new Knife();
+
+        weaponDamage = currentWeapon.CalculateDamage();
+
     }
 
     // Update is called once per frame

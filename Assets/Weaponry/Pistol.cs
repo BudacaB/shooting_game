@@ -9,6 +9,11 @@ namespace Assets.Weaponry
 {
     public class Pistol : IFireArm
     {
+        public Pistol()
+        {
+
+        }
+
         public void Aim()
         {
             
